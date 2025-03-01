@@ -5,6 +5,7 @@
     }
   },
   "dependencies": {
+    "@prisma/client": "6.4.1",
     "@react-router/node": "^7.2.0",
     "@react-router/serve": "^7.2.0",
     "class-variance-authority": "0.7.1",
@@ -52,6 +53,7 @@
     "husky": "^8.0.0",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "prisma": "6.4.1",
     "react-router-devtools": "^1.1.0",
     "remix-flat-routes": "0.8.5",
     "tailwindcss": "^4.0.0",
@@ -70,6 +72,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky || true",
+    "prisma:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev --name",
+    "prisma:push": "npx prisma db push && npx prisma generate",
+    "prisma:reset-dev": "npm run prisma:wipe && npm run prisma:seed && npm run dev",
+    "prisma:setup": "prisma generate && prisma migrate deploy && prisma db push",
+    "prisma:studio": "npx prisma studio",
+    "prisma:wipe": "npx prisma migrate reset --force && npx prisma db push",
     "start": "react-router-serve ./build/server/index.js",
     "test": "vitest --reporter=verbose",
     "typecheck": "react-router typegen && tsc"
