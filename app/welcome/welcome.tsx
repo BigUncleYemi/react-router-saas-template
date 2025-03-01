@@ -1,7 +1,11 @@
+import { useTranslation } from 'react-i18next';
+
 import logoDark from './logo-dark.svg';
 import logoLight from './logo-light.svg';
 
 export function Welcome() {
+  const { t } = useTranslation();
+
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex min-h-0 flex-1 flex-col items-center gap-16">
@@ -22,7 +26,7 @@ export function Welcome() {
         <div className="w-full max-w-[300px] space-y-6 px-4">
           <nav className="space-y-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
             <p className="text-center leading-6 text-gray-700 dark:text-gray-200">
-              What&apos;s next?
+              {t('greeting')}
             </p>
             <ul>
               {resources.map(({ href, text, icon }) => (

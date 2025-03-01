@@ -1,5 +1,7 @@
 import './app.css';
 
+import { useTranslation } from 'react-i18next';
+import type { LoaderFunctionArgs } from 'react-router';
 import {
   isRouteErrorResponse,
   Links,
@@ -7,7 +9,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from 'react-router';
+import { useChangeLanguage } from 'remix-i18next/react';
+
+import i18next from '~/utils/i18next.server';
 
 import type { Route } from './+types/root';
 
@@ -24,9 +30,22 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export const handle = { i18n: 'common' };
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const locale = await i18next.getLocale(request);
+  return { locale };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { locale } = useLoaderData<typeof loader>();
+
+  const { i18n } = useTranslation();
+
+  useChangeLanguage(locale);
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
