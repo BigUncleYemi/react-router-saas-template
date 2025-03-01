@@ -3,6 +3,36 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+const rootConfig = defineConfig({
+  plugins: [
+    tailwindcss(),
+    !process.env.VITEST && reactRouter(),
+    tsconfigPaths(),
+  ],
 });
+
+const testConfig = defineConfig({
+  test: {
+    workspace: [
+      {
+        ...rootConfig,
+        test: { include: ['app/**/*.test.ts'], name: 'unit-tests' },
+      },
+      {
+        ...rootConfig,
+        test: { include: ['app/**/*.spec.ts'], name: 'integration-tests' },
+      },
+      {
+        ...rootConfig,
+        test: {
+          environment: 'happy-dom',
+          include: ['app/**/*.test.tsx'],
+          name: 'react-happy-dom-tests',
+          setupFiles: ['app/test/setup-test-environment.ts'],
+        },
+      },
+    ],
+  },
+});
+
+export default defineConfig({ ...rootConfig, ...testConfig });
