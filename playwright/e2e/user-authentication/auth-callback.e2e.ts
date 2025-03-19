@@ -82,7 +82,9 @@ test.describe(`${path} API route`, () => {
     await page.goto(`${path}?code=${code}`);
 
     // Verify we're on the organizations page.
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     // Clean up.
     await teardownOrganizationAndMember({ user, organization });

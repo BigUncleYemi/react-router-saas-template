@@ -1,7 +1,7 @@
 import { OrganizationMembershipRole } from '@prisma/client';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { useTranslation } from 'react-i18next';
-import { Link, redirect, useLoaderData } from 'react-router';
+import { href, Link, redirect, useLoaderData } from 'react-router';
 import { promiseHash } from 'remix-utils/promise';
 
 import { Avatar, AvatarImage } from '~/components/ui/avatar';
@@ -52,15 +52,15 @@ export default function OrganizationsRoute() {
   return (
     <>
       <header className="sr-only">
-        <h1>{t('organizationsList.pageTitle')}</h1>
+        <h1>{t('organizationsList.page-title')}</h1>
       </header>
 
       <main className="mx-auto max-w-xl p-4 md:px-0 md:py-12">
         <Card>
           <CardHeader>
-            <CardTitle>{t('organizationsList.cardTitle')}</CardTitle>
+            <CardTitle>{t('organizationsList.card-title')}</CardTitle>
             <CardDescription>
-              {t('organizationsList.cardDescription')}
+              {t('organizationsList.card-description')}
             </CardDescription>
           </CardHeader>
 
@@ -73,7 +73,9 @@ export default function OrganizationsRoute() {
                       buttonVariants({ variant: 'outline' }),
                       'flex h-auto w-full items-center gap-2 px-4 py-2 text-left',
                     )}
-                    to={`/organizations/${membership.organization.slug}`}
+                    to={href('/organizations/:organizationsSlug', {
+                      organizationsSlug: membership.organization.slug,
+                    })}
                   >
                     <Avatar className="size-10 shrink-0 items-center justify-center rounded-md border">
                       <AvatarImage

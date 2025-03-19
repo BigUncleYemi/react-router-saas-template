@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useActionData, useNavigation } from 'react-router';
+import { href, useActionData, useNavigation } from 'react-router';
 import { promiseHash } from 'remix-utils/promise';
 
 import { GeneralErrorBoundary } from '~/components/general-error-boundary';
@@ -52,12 +52,12 @@ export default function UserAccountOnboardingRoute() {
           steps={[
             {
               name: t('user-account.title'),
-              href: '/onboarding/user-account',
+              href: href('/onboarding/user-account'),
               status: 'current',
             },
             {
               name: t('organization.title'),
-              href: '/onboarding/organization',
+              href: href('/onboarding/organization'),
               status: 'upcoming',
               disabled: true,
             },

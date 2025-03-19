@@ -35,11 +35,11 @@ export function RegistrationVerificationAwaiting({
     <Card>
       <CardHeader className="text-center">
         <CardTitle className="text-xl">
-          {t('register.magicLink.cardTitle')}
+          {t('register.magic-link.card-title')}
         </CardTitle>
 
         <CardDescription className="text-center">
-          {t('register.magicLink.cardDescription')}
+          {t('register.magic-link.card-description')}
         </CardDescription>
       </CardHeader>
 
@@ -47,7 +47,7 @@ export function RegistrationVerificationAwaiting({
         <div className="grid gap-4">
           <p className="text-muted-foreground text-xs">
             <Trans
-              i18nKey="user-authentication:register.magicLink.countdownMessage"
+              i18nKey="user-authentication:register.magic-link.countdown-message"
               count={secondsLeft}
               components={{ 1: <b /> }}
             />
@@ -66,10 +66,10 @@ export function RegistrationVerificationAwaiting({
                 {isResending ? (
                   <>
                     <Loader2Icon className="animate-spin" />
-                    {t('register.magicLink.resendButtonLoading')}
+                    {t('register.magic-link.resend-button-loading')}
                   </>
                 ) : (
-                  t('register.magicLink.resendButton')
+                  t('register.magic-link.resend-button')
                 )}
               </Button>
             </fieldset>

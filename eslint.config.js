@@ -62,6 +62,7 @@ export default tseslint.config(
       'unicorn/better-regex': 'warn',
       'unicorn/no-process-exit': 'off',
       'unicorn/no-array-reduce': 'off',
+      'unicorn/no-array-callback-reference': 'off',
       'unicorn/prevent-abbreviations': [
         'error',
         {
@@ -80,6 +81,7 @@ export default tseslint.config(
           ignore: [
             /.*\._index\.(tsx|ts)$/, // Files ending with ._index.tsx
             /.*\$[A-Za-z]+Slug(\.[A-Za-z]+)*\.(tsx,ts)$/, // Files with $SomethingSlug.tsx (e.g., $organizationSlug)
+            /.*_\.[A-Za-z]+\.(tsx|ts)$/, // Files with _.something.tsx (e.g., projects_.active.tsx)
           ],
         },
       ],

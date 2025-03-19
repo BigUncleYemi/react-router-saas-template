@@ -27,7 +27,9 @@ test.describe(`${path} API route`, () => {
     await page.goto(`${path}?token_hash=${tokenHash}`);
 
     // Verify the user is redirected to the organizations page.
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     // Clean up.
     await teardownOrganizationAndMember({ user, organization });
@@ -66,7 +68,9 @@ test.describe(`${path} API route`, () => {
     await page.goto(`${path}?token_hash=any_token`);
 
     // Verify the user is redirected to the organizations page.
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     // Clean up.
     await teardownOrganizationAndMember({ user, organization });

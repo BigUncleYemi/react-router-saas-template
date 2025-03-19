@@ -15,7 +15,7 @@ A button component supporting multiple variants (default, destructive, outline, 
 
 // Generated test file (button.test.tsx)
 import { faker } from '@faker-js/faker';
-import { Link } from 'react-router';
+import { Link, href } from 'react-router';
 import { createRoutesStub } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -60,7 +60,7 @@ describe('Button Component', () => {
         path,
         Component: () => (
           <Button asChild>
-            <Link to={'/custom-link'}>Custom Link</Link>
+            <Link to={href('/custom-link')}>Custom Link</Link>
           </Button>
         ),
       },

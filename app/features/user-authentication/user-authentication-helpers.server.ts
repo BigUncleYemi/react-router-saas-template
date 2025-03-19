@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 import { safeRedirect } from 'remix-utils/safe-redirect';
 
 import { createSupabaseServerClient } from './supabase.server';
@@ -51,7 +51,7 @@ export async function requireUserIsAnonymous(request: Request) {
   } = await supabase.auth.getUser();
 
   if (!error && user) {
-    throw redirect('/organizations', { headers });
+    throw redirect(href('/organizations'), { headers });
   }
 
   return { supabase, headers };

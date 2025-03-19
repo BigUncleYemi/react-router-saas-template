@@ -63,7 +63,9 @@ export async function retrieveUserAccountWithMembershipsFromDatabaseBySupabaseUs
           OR: [{ deactivatedAt: null }, { deactivatedAt: { gt: new Date() } }],
         },
         select: {
-          organization: { select: { id: true, name: true, slug: true } },
+          organization: {
+            select: { id: true, name: true, slug: true, imageUrl: true },
+          },
           role: true,
           deactivatedAt: true,
         },

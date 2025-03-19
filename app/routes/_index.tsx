@@ -1,6 +1,6 @@
 import { GithubIcon } from 'lucide-react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { href, Link } from 'react-router';
 
 import { buttonVariants } from '~/components/ui/button';
 import { requireUserIsAnonymous } from '~/features/user-authentication/user-authentication-helpers.server';
@@ -82,100 +82,100 @@ export default function Landing() {
   const { t } = useTranslation('landing');
 
   return (
-    <main className="container mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-12 py-4 lg:gap-16">
-      <div className="relative py-4">
-        <div className="absolute inset-0">
-          <img
-            className="border-foreground h-full w-full rounded-lg border object-cover shadow-xl sm:rounded-2xl"
-            src="https://images.unsplash.com/photo-1530352865347-3c2e277abefe"
-            alt={t('dj-image-alt')}
-          />
-          <div className="bg-primary absolute inset-0 rounded-l opacity-50 mix-blend-multiply sm:rounded-2xl" />
-        </div>
-
-        <div className="relative flex flex-col items-center gap-4 text-center">
-          <a
-            className={buttonVariants({ variant: 'secondary' })}
-            href="https://twitter.com/janhesters"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main className="dark:bg-muted">
+      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-12 py-4 lg:gap-16">
+        <div className="relative py-4">
+          <div className="absolute inset-0">
             <img
-              alt="Ten X Dev"
-              src={janHestersAvatar}
-              className="mr-2 size-6 rounded-sm"
+              className="border-foreground h-full w-full rounded-lg border object-cover shadow-xl sm:rounded-2xl"
+              src="https://images.unsplash.com/photo-1530352865347-3c2e277abefe"
+              alt={t('dj-image-alt')}
             />
-            {t('follow-jan-hesters')}
-          </a>
-
-          <h1 className="text-primary scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-            {t('common:app-name')}
-          </h1>
-
-          <p className="mt-0 text-xl leading-7 text-balance text-white">
-            <Trans
-              components={{
-                1: (
-                  <Link
-                    className="ring-offset-background hover:text-primary focus-visible:ring-ring text-muted-foreground/80 rounded-sm underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-                    to="https://github.com/janhesters/french-house-stack/blob/main/README.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                ),
-                2: (
-                  <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold" />
-                ),
-              }}
-              i18nKey="landing:stack-instructions"
-            />
-          </p>
-
-          <div className="flex items-center gap-x-4">
-            <Link className={buttonVariants()} to="/register">
-              {t('register')}
-            </Link>
-
-            <a
-              className={buttonVariants({ variant: 'outline' })}
-              href="https://github.com/janhesters/french-house-stack"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <GithubIcon className="mr-2 size-4" />
-              GitHub
-            </a>
+            <div className="bg-primary absolute inset-0 rounded-l opacity-50 mix-blend-multiply sm:rounded-2xl" />
           </div>
 
-          <a
-            className="focus-visible:ring-ring rounded-md px-4 py-2 hover:opacity-80 focus-visible:ring-1 focus-visible:outline-none"
-            href="https://remix.run"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              alt="Remix"
-              src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
-              className="mx-auto w-full max-w-48 md:max-w-64"
-            />
-          </a>
-        </div>
-      </div>
-
-      <ul className="grid grid-cols-2 gap-x-2 gap-y-4 sm:gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-        {logos.map(img => (
-          <li key={img.href}>
+          <div className="relative flex flex-col items-center gap-4 text-center">
             <a
-              className="focus-visible:ring-ring mx-auto flex h-16 w-32 justify-center rounded-md grayscale transition hover:grayscale-0 focus:grayscale-0 focus-visible:ring-1 focus-visible:outline-none sm:w-40"
-              href={img.href}
+              className={buttonVariants({ variant: 'secondary' })}
+              href="https://twitter.com/janhesters"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img alt={img.alt} src={img.src} />
+              <img
+                alt="Ten X Dev"
+                src={janHestersAvatar}
+                className="mr-2 size-6 rounded-sm"
+              />
+              {t('follow-jan-hesters')}
             </a>
-          </li>
-        ))}
-      </ul>
+
+            <h1 className="text-primary scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              {t('common:app-name')}
+            </h1>
+
+            <p className="mt-0 text-xl leading-7 text-balance text-white">
+              <Trans
+                components={{
+                  1: (
+                    <a
+                      className="ring-offset-background hover:text-primary focus-visible:ring-ring text-muted-foreground/80 rounded-sm underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                      href="https://github.com/janhesters/react-router-saas-template/blob/div/README.md"
+                    />
+                  ),
+                  2: (
+                    <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold" />
+                  ),
+                }}
+                i18nKey="landing:stack-instructions"
+              />
+            </p>
+
+            <div className="flex items-center gap-x-4">
+              <Link className={buttonVariants()} to={href('/register')}>
+                {t('register')}
+              </Link>
+
+              <a
+                className={buttonVariants({ variant: 'outline' })}
+                href="https://github.com/janhesters/french-house-stack"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GithubIcon className="mr-2 size-4" />
+                GitHub
+              </a>
+            </div>
+
+            <a
+              className="focus-visible:ring-ring rounded-md px-4 py-2 hover:opacity-80 focus-visible:ring-1 focus-visible:outline-none"
+              href="https://remix.run"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                alt="Remix"
+                src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
+                className="mx-auto w-full max-w-48 md:max-w-64"
+              />
+            </a>
+          </div>
+        </div>
+
+        <ul className="grid grid-cols-2 gap-x-2 gap-y-4 sm:gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+          {logos.map(img => (
+            <li key={img.href}>
+              <a
+                className="focus-visible:ring-ring mx-auto flex h-16 w-32 justify-center rounded-md grayscale transition hover:grayscale-0 focus:grayscale-0 focus-visible:ring-1 focus-visible:outline-none sm:w-40"
+                href={img.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img alt={img.alt} src={img.src} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 }

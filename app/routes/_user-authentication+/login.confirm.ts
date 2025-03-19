@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 
 import { requireUserIsAnonymous } from '~/features/user-authentication/user-authentication-helpers.server';
 import { getSearchParameterFromRequest } from '~/utils/get-search-parameter-from-request.server';
@@ -26,5 +26,5 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw new Error('User not found');
   }
 
-  return redirect('/organizations', { headers });
+  return redirect(href('/organizations'), { headers });
 }

@@ -45,7 +45,9 @@ test.describe('login page', () => {
     await page.goto(path);
 
     // Verify redirect to login page
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     await deleteUserAccountFromDatabaseById(user.id);
     await deleteOrganizationFromDatabaseById(organization.id);

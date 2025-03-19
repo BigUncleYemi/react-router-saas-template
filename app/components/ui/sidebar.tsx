@@ -3,6 +3,7 @@ import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -164,6 +165,9 @@ function Sidebar({
   collapsible?: 'offcanvas' | 'icon' | 'none';
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { t } = useTranslation('organizations', {
+    keyPrefix: 'layout.app-sidebar.nav',
+  });
 
   if (collapsible === 'none') {
     return (
@@ -199,14 +203,20 @@ function Sidebar({
             <SheetTitle>Sidebar</SheetTitle>
             <SheetDescription>Displays the mobile sidebar.</SheetDescription>
           </SheetHeader>
-          <div className="flex h-full w-full flex-col">{children}</div>
+          <nav
+            aria-label={t('sidebar')}
+            className="flex h-full w-full flex-col"
+          >
+            {children}
+          </nav>
         </SheetContent>
       </Sheet>
     );
   }
 
   return (
-    <div
+    <nav
+      aria-label={t('sidebar')}
       className="group peer text-sidebar-foreground hidden md:block"
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
@@ -249,7 +259,7 @@ function Sidebar({
           {children}
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 

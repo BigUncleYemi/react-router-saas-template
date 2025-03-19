@@ -22,7 +22,9 @@ test.describe('register page', () => {
 
     await page.goto(path);
 
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     await teardownOrganizationAndMember({ user, organization });
   });

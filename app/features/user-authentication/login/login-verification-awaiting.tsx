@@ -35,11 +35,11 @@ export function LoginVerificationAwaiting({
     <Card>
       <CardHeader className="text-center">
         <CardTitle className="text-xl">
-          {t('login.magicLink.cardTitle')}
+          {t('login.magic-link.card-title')}
         </CardTitle>
 
         <CardDescription className="text-center">
-          {t('login.magicLink.cardDescription')}
+          {t('login.magic-link.card-description')}
         </CardDescription>
       </CardHeader>
 
@@ -47,7 +47,7 @@ export function LoginVerificationAwaiting({
         <div className="grid gap-4">
           <p className="text-muted-foreground text-xs">
             <Trans
-              i18nKey="user-authentication:login.magicLink.countdownMessage"
+              i18nKey="user-authentication:login.magic-link.countdown-message"
               count={secondsLeft}
               components={{ 1: <b /> }}
             />
@@ -66,10 +66,10 @@ export function LoginVerificationAwaiting({
                 {isResending ? (
                   <>
                     <Loader2Icon className="animate-spin" />
-                    {t('login.magicLink.resendButtonLoading')}
+                    {t('login.magic-link.resend-button-loading')}
                   </>
                 ) : (
-                  t('login.magicLink.resendButton')
+                  t('login.magic-link.resend-button')
                 )}
               </Button>
             </fieldset>

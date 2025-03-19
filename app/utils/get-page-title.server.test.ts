@@ -23,18 +23,18 @@ const createMockT = (pageTitle: string): TFunction => {
 
 describe('getPageTitle', () => {
   test('given: a translation key, should: return the translated title combined with the app name', () => {
-    const mockT = createMockT('login.pageTitle');
+    const mockT = createMockT('login.page-title');
 
-    const actual = getPageTitle(mockT, 'login.pageTitle');
+    const actual = getPageTitle(mockT, 'login.page-title');
     const expected = 'login | React Router SaaS Template';
 
     expect(actual).toEqual(expected);
   });
 
   test('given: a different translation key, should: return the translated title combined with the app name', () => {
-    const mockT = createMockT('register.pageTitle');
+    const mockT = createMockT('register.page-title');
 
-    const actual = getPageTitle(mockT, 'register.pageTitle');
+    const actual = getPageTitle(mockT, 'register.page-title');
     const expected = 'register | React Router SaaS Template';
 
     expect(actual).toEqual(expected);

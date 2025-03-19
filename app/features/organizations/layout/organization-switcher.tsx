@@ -1,0 +1,126 @@
+import type { Organization } from '@prisma/client';
+import { ChevronsUpDownIcon, PlusIcon } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '~/components/ui/dropdown-menu';
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '~/components/ui/sidebar';
+
+export type OrganizationSwitcherProps = {
+  organizations: {
+    id: Organization['id'];
+    name: Organization['name'];
+    logo: Organization['imageUrl'];
+    slug: Organization['slug'];
+    plan: string;
+  }[];
+};
+
+export function OrganizationSwitcher({
+  organizations,
+}: OrganizationSwitcherProps) {
+  const { isMobile } = useSidebar();
+  const [activeOrganization, setActiveOrganization] = useState(
+    organizations[0],
+  );
+  const { t } = useTranslation('organizations', {
+    keyPrefix: 'layout.organization-switcher',
+  });
+
+  if (!activeOrganization) {
+    // eslint-disable-next-line unicorn/no-null
+    return null;
+  }
+
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <Avatar className="aspect-square size-8 rounded-lg">
+                <AvatarImage
+                  alt={activeOrganization.name}
+                  src={activeOrganization.logo}
+                />
+
+                <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground rounded-lg">
+                  {activeOrganization.name.slice(0, 2)}
+                </AvatarFallback>
+              </Avatar>
+
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">
+                  {activeOrganization.name}
+                </span>
+
+                <span className="truncate text-xs">
+                  {activeOrganization.plan}
+                </span>
+              </div>
+
+              <ChevronsUpDownIcon className="ml-auto" />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="min-w-56 rounded-lg"
+            align="start"
+            side={isMobile ? 'bottom' : 'right'}
+            sideOffset={4}
+          >
+            <DropdownMenuLabel className="text-muted-foreground text-xs">
+              {t('organizations')}
+            </DropdownMenuLabel>
+
+            {organizations.map(organization => (
+              <DropdownMenuItem
+                key={organization.id}
+                onClick={() => setActiveOrganization(organization)}
+                className="gap-2 p-2"
+              >
+                <Avatar className="aspect-square size-6 rounded-sm border">
+                  <AvatarImage
+                    src={organization.logo}
+                    alt={organization.name}
+                  />
+
+                  <AvatarFallback className="rounded-sm">
+                    {organization.name.slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+                {organization.name}
+              </DropdownMenuItem>
+            ))}
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem className="gap-2 p-2">
+              <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
+                <PlusIcon className="size-4" />
+              </div>
+
+              <div className="text-muted-foreground font-medium">
+                {t('add-organization')}
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+}

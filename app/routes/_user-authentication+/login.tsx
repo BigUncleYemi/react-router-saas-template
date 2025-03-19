@@ -23,7 +23,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     userIsAnonymous: requireUserIsAnonymous(request),
     t: i18next.getFixedT(request, ['user-authentication', 'common']),
   });
-  return { title: getPageTitle(t, 'login.pageTitle') };
+  return { title: getPageTitle(t, 'login.page-title') };
 }
 
 export const meta: Route.MetaFunction = ({ data }) => [{ title: data.title }];
@@ -49,7 +49,7 @@ export default function LoginRoute() {
 
   return (
     <>
-      <h1 className="sr-only">{t('login.pageTitle')}</h1>
+      <h1 className="sr-only">{t('login.page-title')}</h1>
 
       <div className="flex flex-col gap-6">
         {isAwaitingEmailConfirmation ? (

@@ -6,10 +6,44 @@
       "owner": "Owner"
     }
   },
+  "layout": {
+    "app-header": {
+      "notifications-button-label": "Open notifications"
+    },
+    "app-sidebar": {
+      "nav": {
+        "app": {
+          "analytics": "Analytics",
+          "dashboard": "Dashboard",
+          "projects": {
+            "active": "Active",
+            "all": "All",
+            "title": "Projects"
+          },
+          "title": "App"
+        },
+        "settings": {
+          "get-help": "Get Help",
+          "organization-settings": "Organization Settings",
+          "title": "Settings"
+        },
+        "sidebar": "Sidebar"
+      }
+    },
+    "nav-user": {
+      "account": "Account",
+      "log-out": "Log out",
+      "user-menu-button-label": "Open user menu"
+    },
+    "organization-switcher": {
+      "add-organization": "Add organization",
+      "organizations": "Organizations"
+    }
+  },
   "organizationsList": {
-    "cardDescription": "This is a list of all the organizations you're a member of. Pick one to enter and visit its dashboard.",
-    "cardTitle": "Your organizations",
-    "pageTitle": "Organization list",
+    "card-description": "This is a list of all the organizations you're a member of. Pick one to enter and visit its dashboard.",
+    "card-title": "Your organizations",
+    "page-title": "Organization list",
     "title": "Organization List"
   }
 }

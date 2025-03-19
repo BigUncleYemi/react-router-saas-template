@@ -37,7 +37,9 @@ test.describe('onboarding organization page', () => {
 
     await page.goto(path);
 
-    expect(getPath(page)).toEqual(`/organizations/${organization.slug}`);
+    expect(getPath(page)).toEqual(
+      `/organizations/${organization.slug}/dashboard`,
+    );
 
     await teardownOrganizationAndMember({ user, organization });
   });
@@ -101,8 +103,10 @@ test.describe('onboarding organization page', () => {
       await expect(page.getByRole('button', { name: /saving/i })).toBeVisible();
 
       // Verify redirect and database update
-      await expect(page.getByText(/organization layout/i)).toBeVisible();
-      expect(getPath(page)).toEqual(`/organizations/${newSlug}`);
+      await expect(
+        page.getByRole('heading', { name: /dashboard/i, level: 1 }),
+      ).toBeVisible();
+      expect(getPath(page)).toEqual(`/organizations/${newSlug}/dashboard`);
       const createdOrganization =
         await retrieveOrganizationWithMembershipsFromDatabaseBySlug(newSlug);
       expect(createdOrganization).toMatchObject({

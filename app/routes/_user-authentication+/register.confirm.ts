@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 
 import { saveUserAccountToDatabase } from '~/features/user-accounts/user-accounts-model.server';
 import { requireUserIsAnonymous } from '~/features/user-authentication/user-authentication-helpers.server';
@@ -45,5 +45,5 @@ export async function loader({ request }: Route.LoaderArgs) {
     }
   }
 
-  return redirect('/onboarding', { headers });
+  return redirect(href('/onboarding'), { headers });
 }

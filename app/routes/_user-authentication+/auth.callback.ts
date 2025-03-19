@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 
 import {
   retrieveUserAccountFromDatabaseByEmail,
@@ -40,10 +40,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   const maybeUser = await retrieveUserAccountFromDatabaseByEmail(email);
 
   if (maybeUser) {
-    return redirect('/organizations', { headers });
+    return redirect(href('/organizations'), { headers });
   }
 
   await saveUserAccountToDatabase({ email, supabaseUserId: user.id });
 
-  return redirect('/onboarding', { headers });
+  return redirect(href('/onboarding'), { headers });
 }

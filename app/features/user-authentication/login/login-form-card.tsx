@@ -3,7 +3,7 @@ import { Loader2Icon } from 'lucide-react';
 import type { FieldErrors } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Form, Link, useSubmit } from 'react-router';
+import { Form, href, Link, useSubmit } from 'react-router';
 import { z } from 'zod';
 
 import { GooggleIcon } from '~/components/svgs/google-icon';
@@ -82,9 +82,7 @@ export function LoginFormCard({
 
   const googleForm = useForm<LoginWithGoogleSchema>({
     resolver: zodResolver(loginWithGoogleSchema),
-    defaultValues: {
-      intent: loginIntents.loginWithGoogle,
-    },
+    defaultValues: { intent: loginIntents.loginWithGoogle },
   });
 
   const handleGoogleSubmit = async (values: LoginWithGoogleSchema) => {
@@ -94,9 +92,9 @@ export function LoginFormCard({
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle className="text-xl">{t('login.form.cardTitle')}</CardTitle>
+        <CardTitle className="text-xl">{t('login.form.card-title')}</CardTitle>
 
-        <CardDescription>{t('login.form.cardDescription')}</CardDescription>
+        <CardDescription>{t('login.form.card-description')}</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -118,7 +116,7 @@ export function LoginFormCard({
                       <FormControl>
                         <Input
                           autoComplete="email"
-                          placeholder={t('login.form.emailPlaceholder')}
+                          placeholder={t('login.form.email-placeholder')}
                           required
                           type="email"
                           {...field}
@@ -139,10 +137,10 @@ export function LoginFormCard({
                   {isLoggingInWithEmail ? (
                     <>
                       <Loader2Icon className="animate-spin" />
-                      {t('login.form.submitButtonLoading')}
+                      {t('login.form.submit-button-loading')}
                     </>
                   ) : (
-                    t('login.form.submitButton')
+                    t('login.form.submit-button')
                   )}
                 </Button>
               </fieldset>
@@ -151,7 +149,7 @@ export function LoginFormCard({
 
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-card text-muted-foreground relative z-10 px-2">
-              {t('login.form.dividerText')}
+              {t('login.form.divider-text')}
             </span>
           </div>
 
@@ -186,15 +184,15 @@ export function LoginFormCard({
           </FormProvider>
 
           <div className="text-center text-sm">
-            {t('login.form.registerPrompt')}{' '}
+            {t('login.form.register-prompt')}{' '}
             <Link
-              to="/register"
+              to={href('/register')}
               className={cn(
                 buttonVariants({ variant: 'link' }),
                 'text-card-foreground hover:text-primary max-h-min p-0 underline underline-offset-4',
               )}
             >
-              {t('login.form.registerLink')}
+              {t('login.form.register-link')}
             </Link>
           </div>
         </div>

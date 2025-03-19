@@ -17,6 +17,7 @@ export const createPopulatedUserAccount: Factory<UserAccount> = ({
   name = faker.person.fullName(),
   updatedAt = faker.date.recent({ days: 10 }),
   createdAt = faker.date.past({ years: 3, refDate: updatedAt }),
+  imageUrl = faker.image.avatar(),
 } = {}) => ({
   id,
   supabaseUserId,
@@ -24,4 +25,5 @@ export const createPopulatedUserAccount: Factory<UserAccount> = ({
   name,
   createdAt,
   updatedAt,
+  imageUrl,
 });

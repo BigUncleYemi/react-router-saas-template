@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 
 import { updateUserAccountInDatabaseById } from '~/features/user-accounts/user-accounts-model.server';
 import { getIsDataWithResponseInit } from '~/utils/get-is-data-with-response-init.server';
@@ -21,7 +21,7 @@ export async function onboardingUserAccountAction({
       user: { name: data.name },
     });
 
-    return redirect('/onboarding/organization', { headers });
+    return redirect(href('/onboarding/organization'), { headers });
   } catch (error) {
     if (
       getIsDataWithResponseInit<{ errors: OnboardingUserAccountErrors }>(error)

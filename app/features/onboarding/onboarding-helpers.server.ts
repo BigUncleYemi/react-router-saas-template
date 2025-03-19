@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { href, redirect } from 'react-router';
 
 import { asyncPipe } from '~/utils/async-pipe.server';
 
@@ -58,10 +58,15 @@ export const throwIfUserIsOnboarded = (
   if (getUserIsOnboarded(user)) {
     if (user.memberships.length === 1) {
       const slug = user.memberships[0].organization.slug;
-      throw redirect(`/organizations/${slug}`, { headers });
+      throw redirect(
+        href('/organizations/:organizationsSlug', {
+          organizationsSlug: slug,
+        }),
+        { headers },
+      );
     }
 
-    throw redirect('/organizations', { headers });
+    throw redirect(href('/organizations'), { headers });
   }
 
   return user;
@@ -85,7 +90,7 @@ export const redirectUserToOnboardingStep = (
   const { pathname } = new URL(request.url);
 
   if (user.name.length === 0 && pathname !== '/onboarding/user-account') {
-    throw redirect('/onboarding/user-account', { headers });
+    throw redirect(href('/onboarding/user-account'), { headers });
   }
 
   if (
@@ -93,7 +98,7 @@ export const redirectUserToOnboardingStep = (
     user.memberships.length === 0 &&
     pathname !== '/onboarding/organization'
   ) {
-    throw redirect('/onboarding/organization', { headers });
+    throw redirect(href('/onboarding/organization'), { headers });
   }
 
   return { user, headers };
@@ -136,7 +141,7 @@ export const throwIfUserNeedsOnboarding = ({
     return { user, headers };
   }
 
-  throw redirect('/onboarding', { headers });
+  throw redirect(href('/onboarding'), { headers });
 };
 
 /**
