@@ -1,0 +1,59 @@
+import { useTranslation } from 'react-i18next';
+import { href, Link, Outlet, useLocation } from 'react-router';
+import { redirect } from 'react-router';
+
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from '~/components/ui/navigation-menu';
+
+import type { Route } from './+types/_settings-layout';
+
+export function loader({ request }: Route.LoaderArgs) {
+  const pathname = new URL(request.url).pathname;
+  if (pathname.endsWith('/settings')) {
+    return redirect(pathname + '/general');
+  }
+
+  return { headerTitle: 'Organization Settings' };
+}
+
+export default function SettingsLayout({ params }: Route.ComponentProps) {
+  const pathname = useLocation().pathname;
+  const { t } = useTranslation('organizations', {
+    keyPrefix: 'settings.layout',
+  });
+  const routes = [
+    {
+      title: t('general'),
+      url: href('/organizations/:organizationSlug/settings/general', {
+        organizationSlug: params.organizationSlug,
+      }),
+    },
+  ];
+
+  return (
+    <>
+      <div className="bg-sidebar flex h-[calc(var(--header-height)-0.5rem)] items-center border-b px-4 lg:px-6">
+        <NavigationMenu aria-label={t('settings-nav')} className="-ml-1.5">
+          <NavigationMenuList className="gap-2 *:data-[slot=navigation-menu-item]:h-7 **:data-[slot=navigation-menu-link]:py-1 **:data-[slot=navigation-menu-link]:font-medium">
+            {routes.map(route => (
+              <NavigationMenuItem key={route.url}>
+                <NavigationMenuLink
+                  asChild
+                  data-active={pathname === route.url}
+                >
+                  <Link to={route.url}>{route.title}</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+
+      <Outlet />
+    </>
+  );
+}

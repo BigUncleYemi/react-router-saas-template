@@ -1,7 +1,6 @@
 import './app.css';
 
 import { useTranslation } from 'react-i18next';
-import type { LoaderFunctionArgs } from 'react-router';
 import {
   isRouteErrorResponse,
   Links,
@@ -9,7 +8,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from 'react-router';
 import { useChangeLanguage } from 'remix-i18next/react';
 
@@ -32,7 +30,7 @@ export const links: Route.LinksFunction = () => [
 
 export const handle = { i18n: 'common' };
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const { CLIENT_MOCKS } = process.env;
   const locale = await i18next.getLocale(request);
   const t = await i18next.getFixedT(request);
@@ -42,9 +40,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export const meta: Route.MetaFunction = ({ data }) => [{ title: data?.title }];
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  const data = useLoaderData<typeof loader>();
-  const locale = data?.locale ?? 'en';
+export function Layout({
+  children,
+  loaderData,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = loaderData?.locale ?? 'en';
 
   const { i18n } = useTranslation();
 
@@ -63,10 +63,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        {data?.ENV && (
+        {loaderData?.ENV && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify(data?.ENV)}`,
+              __html: `window.ENV = ${JSON.stringify(loaderData?.ENV)}`,
             }}
           />
         )}

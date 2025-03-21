@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
-import { href, useParams } from 'react-router';
+import { href } from 'react-router';
 
 import {
   Sidebar,
@@ -22,14 +22,20 @@ import type { NavUserProps } from './nav-user';
 import { NavUser } from './nav-user';
 import type { OrganizationSwitcherProps } from './organization-switcher';
 import { OrganizationSwitcher } from './organization-switcher';
-import type { Info } from '.react-router/types/app/routes/organizations_+/$organizationsSlug+/+types/_layout';
+import type { Route } from '.react-router/types/app/routes/organizations_+/$organizationSlug+/+types/_sidebar-layout';
 
-type AppSidebarProps = {} & ComponentProps<typeof Sidebar> &
+type AppSidebarProps = {
+  organizationSlug: Route.ComponentProps['params']['organizationSlug'];
+} & ComponentProps<typeof Sidebar> &
   OrganizationSwitcherProps &
   NavUserProps;
 
-export function AppSidebar({ organizations, user, ...props }: AppSidebarProps) {
-  const params = useParams<Info['params']>();
+export function AppSidebar({
+  organizations,
+  organizationSlug,
+  user,
+  ...props
+}: AppSidebarProps) {
   const { t } = useTranslation('organizations', {
     keyPrefix: 'layout.app-sidebar.nav',
   });
@@ -46,8 +52,8 @@ export function AppSidebar({ organizations, user, ...props }: AppSidebarProps) {
             {
               icon: LayoutDashboardIcon,
               title: t('app.dashboard'),
-              url: href('/organizations/:organizationsSlug/dashboard', {
-                organizationsSlug: params.organizationsSlug!,
+              url: href('/organizations/:organizationSlug/dashboard', {
+                organizationSlug,
               }),
             },
             {
@@ -56,16 +62,16 @@ export function AppSidebar({ organizations, user, ...props }: AppSidebarProps) {
               items: [
                 {
                   title: t('app.projects.all'),
-                  url: href('/organizations/:organizationsSlug/projects', {
-                    organizationsSlug: params.organizationsSlug!,
+                  url: href('/organizations/:organizationSlug/projects', {
+                    organizationSlug,
                   }),
                 },
                 {
                   title: t('app.projects.active'),
                   url: href(
-                    '/organizations/:organizationsSlug/projects/active',
+                    '/organizations/:organizationSlug/projects/active',
                     {
-                      organizationsSlug: params.organizationsSlug!,
+                      organizationSlug,
                     },
                   ),
                 },
@@ -74,8 +80,8 @@ export function AppSidebar({ organizations, user, ...props }: AppSidebarProps) {
             {
               icon: ChartNoAxesColumnIncreasingIcon,
               title: t('app.analytics'),
-              url: href('/organizations/:organizationsSlug/analytics', {
-                organizationsSlug: params.organizationsSlug!,
+              url: href('/organizations/:organizationSlug/analytics', {
+                organizationSlug,
               }),
             },
           ]}
@@ -87,15 +93,15 @@ export function AppSidebar({ organizations, user, ...props }: AppSidebarProps) {
           items={[
             {
               title: t('settings.organization-settings'),
-              url: href('/organizations/:organizationsSlug/settings', {
-                organizationsSlug: params.organizationsSlug!,
+              url: href('/organizations/:organizationSlug/settings', {
+                organizationSlug,
               }),
               icon: SettingsIcon,
             },
             {
               title: t('settings.get-help'),
-              url: href('/organizations/:organizationsSlug/get-help', {
-                organizationsSlug: params.organizationsSlug!,
+              url: href('/organizations/:organizationSlug/get-help', {
+                organizationSlug,
               }),
               icon: CircleHelpIcon,
             },

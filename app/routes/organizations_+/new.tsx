@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useActionData, useNavigation } from 'react-router';
+import { useNavigation } from 'react-router';
 import { promiseHash } from 'remix-utils/promise';
 
 import {
@@ -30,10 +30,11 @@ export async function action(args: Route.ActionArgs) {
   return await createOrganizationAction(args);
 }
 
-export default function NewOrganizationRoute() {
+export default function NewOrganizationRoute({
+  actionData,
+}: Route.ComponentProps) {
   const { t } = useTranslation('organizations', { keyPrefix: 'new' });
 
-  const actionData = useActionData<typeof action>();
   const errors = getFormErrors(actionData);
 
   const navigation = useNavigation();

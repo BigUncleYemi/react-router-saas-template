@@ -59,8 +59,8 @@ export const throwIfUserIsOnboarded = (
     if (user.memberships.length === 1) {
       const slug = user.memberships[0].organization.slug;
       throw redirect(
-        href('/organizations/:organizationsSlug', {
-          organizationsSlug: slug,
+        href('/organizations/:organizationSlug', {
+          organizationSlug: slug,
         }),
         { headers },
       );

@@ -65,5 +65,11 @@
     "card-title": "Your organizations",
     "page-title": "Organization list",
     "title": "Organization List"
+  },
+  "settings": {
+    "layout": {
+      "general": "General",
+      "settings-nav": "Settings navigation"
+    }
   }
 }

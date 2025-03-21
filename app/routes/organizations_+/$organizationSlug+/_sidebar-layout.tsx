@@ -1,11 +1,5 @@
 import type { ShouldRevalidateFunctionArgs, UIMatch } from 'react-router';
-import {
-  href,
-  Outlet,
-  redirect,
-  useLoaderData,
-  useMatches,
-} from 'react-router';
+import { href, Outlet, redirect } from 'react-router';
 
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { requireOnboardedUserAccountExists } from '~/features/onboarding/onboarding-helpers.server';
@@ -19,7 +13,7 @@ import {
   mapOnboardingUserToOrganizationLayoutProps,
 } from '~/features/organizations/layout/layout-helpers.server';
 
-import type { Route } from './+types/_layout';
+import type { Route } from './+types/_sidebar-layout';
 
 export const handle = { i18n: 'organizations' };
 
@@ -39,12 +33,12 @@ export const shouldRevalidate = ({
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   if (
-    params.organizationsSlug &&
-    request.url.endsWith(`/organizations/${params.organizationsSlug}`)
+    params.organizationSlug &&
+    request.url.endsWith(`/organizations/${params.organizationSlug}`)
   ) {
     return redirect(
-      href('/organizations/:organizationsSlug/dashboard', {
-        organizationsSlug: params.organizationsSlug,
+      href('/organizations/:organizationSlug/dashboard', {
+        organizationSlug: params.organizationSlug,
       }),
     );
   }
@@ -60,16 +54,23 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   };
 }
 
-export default function OrganizationLayoutRoute() {
-  const { defaultSidebarOpen, organizations, user } =
-    useLoaderData<typeof loader>();
-  const matches = useMatches() as UIMatch<{ headerTitle?: string }>[];
-
-  const headerTitle = findHeaderTitle(matches);
+export default function OrganizationLayoutRoute({
+  loaderData,
+  params,
+  matches,
+}: Route.ComponentProps) {
+  const { defaultSidebarOpen, organizations, user } = loaderData;
+  const headerTitle = findHeaderTitle(
+    matches as UIMatch<{ headerTitle?: string }>[],
+  );
 
   return (
     <SidebarProvider defaultOpen={defaultSidebarOpen}>
-      <AppSidebar organizations={organizations} user={user} />
+      <AppSidebar
+        organizations={organizations}
+        organizationSlug={params.organizationSlug}
+        user={user}
+      />
 
       <SidebarInset>
         <AppHeader title={headerTitle} />

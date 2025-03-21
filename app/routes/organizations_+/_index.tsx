@@ -1,7 +1,7 @@
 import { OrganizationMembershipRole } from '@prisma/client';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { useTranslation } from 'react-i18next';
-import { href, Link, redirect, useLoaderData } from 'react-router';
+import { href, Link, redirect } from 'react-router';
 import { promiseHash } from 'remix-utils/promise';
 
 import { Avatar, AvatarImage } from '~/components/ui/avatar';
@@ -19,7 +19,7 @@ import { cn } from '~/lib/utils';
 import { getPageTitle } from '~/utils/get-page-title.server';
 import i18next from '~/utils/i18next.server';
 
-import type { Route } from '../onboarding+/+types/organization';
+import type { Route } from './+types/_index';
 
 export const handle = { i18n: 'organizations' };
 
@@ -44,8 +44,10 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export const meta: Route.MetaFunction = ({ data }) => [{ title: data.title }];
 
-export default function OrganizationsRoute() {
-  const { memberships } = useLoaderData<typeof loader>();
+export default function OrganizationsRoute({
+  loaderData,
+}: Route.ComponentProps) {
+  const { memberships } = loaderData;
   const { t } = useTranslation('organizations');
 
   return (
@@ -72,8 +74,8 @@ export default function OrganizationsRoute() {
                       buttonVariants({ variant: 'outline' }),
                       'flex h-auto w-full items-center gap-2 px-4 py-2 text-left',
                     )}
-                    to={href('/organizations/:organizationsSlug', {
-                      organizationsSlug: membership.organization.slug,
+                    to={href('/organizations/:organizationSlug', {
+                      organizationSlug: membership.organization.slug,
                     })}
                   >
                     <Avatar className="size-10 shrink-0 items-center justify-center rounded-md border">

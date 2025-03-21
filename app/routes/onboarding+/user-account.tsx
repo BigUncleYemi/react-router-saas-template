@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { href, useActionData, useNavigation } from 'react-router';
+import { href, useNavigation } from 'react-router';
 import { promiseHash } from 'remix-utils/promise';
 
 import { GeneralErrorBoundary } from '~/components/general-error-boundary';
@@ -31,9 +31,10 @@ export async function action(args: Route.ActionArgs) {
   return await onboardingUserAccountAction(args);
 }
 
-export default function UserAccountOnboardingRoute() {
+export default function UserAccountOnboardingRoute({
+  actionData,
+}: Route.ComponentProps) {
   const { t } = useTranslation('onboarding');
-  const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
   const isCreatingUserAccount =
     navigation.formData?.get('intent') === onboardingIntents.createUserAccount;
